@@ -360,3 +360,26 @@ body{
     right: 0;
 }
 
+------------------
+Food item cards
+-----------------
+
+.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
