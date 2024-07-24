@@ -32,13 +32,34 @@ $result = $conn->query($sql);
 
     <!-- Modernizer -->
     <script src="js/modernizer.js"></script>
+
+    <style>
+        .card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
 <div id="loader">
     <div id="status"></div>
 </div>
 <nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="#">The Gallery Café</a>
+    <a class="navbar-brand" href="#">The Gallery Cafe</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -57,7 +78,7 @@ $result = $conn->query($sql);
                 <a class="nav-link" href="pre_order.php">Pre-order</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="events.php">Events</a>
+                <a class="nav-link" href="Parking.php">Parking</a>
             </li>
         </ul>
         <div class="dropdown">
@@ -72,7 +93,7 @@ $result = $conn->query($sql);
     </div>
 </nav>
 
-<div class="container content">
+<div style="min-height: 85vh;" class="container content">
     <div class="row">
         <div class="col-12">
             <h2 class="text-center">Menu Items</h2>
@@ -90,7 +111,7 @@ $result = $conn->query($sql);
             <div class="row">
                 <?php while ($row = $result->fetch_assoc()): ?>
                 <div class="col-md-4">
-                    <div class="card mb-4">
+                    <div style="margin-bottom: 30px;" card mb-4">
                         <img src="uploads/<?php echo $row['image']; ?>" class="card-img-top" alt="<?php echo $row['item_name']; ?>">
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $row['item_name']; ?></h5>
@@ -108,7 +129,7 @@ $result = $conn->query($sql);
 </div>
 
 <div class="footer">
-    <p>&copy; 2024 The Gallery Café</p>
+    <p>&copy; 2024 The Gallery Cafe</p>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

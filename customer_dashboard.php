@@ -55,7 +55,7 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["user_type"] != "customer") {
                     <a class="nav-link" href="pre_order.php">Pre-order</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="pre_order.php">Events</a>
+                    <a class="nav-link" href="pre_order.php">Parking</a>
                 </li>
             </ul>
             <div class="dropdown">
@@ -164,7 +164,7 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["user_type"] != "customer") {
 
 
     <div class="footer">
-        <p>&copy; 2024 The Gallery Café</p>
+        <p>&copy; 2024 The Gallery Cafe</p>
     </div>
 
     <!-- ALL JS FILES -->

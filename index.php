@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>The Gallery Café</title>
+    <title>The Gallery Cafe</title>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <script src="js/scripts.js" defer></script>
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to The Gallery Café</h1>
+        <h1>Welcome to The Gallery Cafe</h1>
         <button id="loginBtn">Login</button>
         <button id="registerBtn">Register</button>
     </div>

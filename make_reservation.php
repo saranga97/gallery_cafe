@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div id="status"></div>
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#">The Gallery Café</a>
+        <a class="navbar-brand" href="#">The Gallery Cafe</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <a class="nav-link" href="pre_order.php">Pre-order</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="events.php">Events</a>
+                    <a class="nav-link" href="Parking.php">Parking</a>
                 </li>
             </ul>
             <div class="dropdown">
@@ -156,7 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <div class="footer">
-        <p>&copy; 2024 The Gallery Café</p>
+        <p>&copy; 2024 The Gallery Cafe</p>
     </div>
 
     <!-- Modal -->

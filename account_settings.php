@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <div class="footer">
-        <p>&copy; 2024 The Gallery Café</p>
+        <p>&copy; 2024 The Gallery Cafe</p>
     </div>
 </body>
 </html>
