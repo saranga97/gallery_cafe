@@ -11,15 +11,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_type = "customer"; // default user type for registration
 
     if ($password !== $confirm_password) {
-        echo "Passwords do not match!";
+        echo "<script>alert('Passwords do not match!');</script>";
     } else {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         
         $sql = "INSERT INTO users (name, email, username, password, address, user_type) VALUES ('$name', '$email', '$username', '$hashed_password', '$address', '$user_type')";
 
         if ($conn->query($sql) === TRUE) {
-            echo "Registration successful!";
-            header("Location: login.php");
+            echo "<script>alert('Registration successful!'); window.location.href='login.php';</script>";
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
@@ -28,20 +27,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h2>Register</h2>
-    <form method="post">
-        Name: <input type="text" name="name" required><br>
-        Email Address: <input type="email" name="email" required><br>
-        Username: <input type="text" name="username" required><br>
-        Password: <input type="password" name="password" required><br>
-        Confirm Password: <input type="password" name="confirm_password" required><br>
-        Address: <textarea name="address" required></textarea><br>
-        <button type="submit">Register</button>
-    </form>
+    <div class="container">
+        <h2 class="text-center mt-5">Register</h2>
+        <form method="post" class="mt-4">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <textarea class="form-control" id="address" name="address" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+        </form>
+        <p class="text-center mt-3">Already have an account? <a href="#" id="loginLink">Login</a></p>
+    </div>
+
+    <script>
+        document.getElementById('loginLink').onclick = function () {
+            document.getElementById('closeRegister').click();
+            document.getElementById('loginBtn').click();
+        };
+    </script>
 </body>
 </html>
