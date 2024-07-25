@@ -6,6 +6,8 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["user_type"] != "admin") {
 }
 include('config.php');
 
+$message = '';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
     $email = $_POST['email'];
@@ -44,7 +46,7 @@ $users = $conn->query("SELECT * FROM users");
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script src="js/scripts.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <style>
         .table-responsive {
             overflow-x: auto;
@@ -57,6 +59,20 @@ $users = $conn->query("SELECT * FROM users");
 
         .modal-backdrop {
             position: unset;
+        }
+
+        .form-group label {
+            font-size: 0.8rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            font-size: 0.8rem;
+        }
+
+        .form-group .form-control {
+            font-size: 0.8rem;
         }
     </style>
 </head>
@@ -103,80 +119,93 @@ $users = $conn->query("SELECT * FROM users");
 
     <div style="min-height: 85vh;" class="container mt-5">
         <h2 class="text-center">Manage Users</h2>
-        <div class="row">
-            <div class="col-md-6">
-                <h3>Add New User</h3>
-                <form method="post" id="userForm">
-                    <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="username">Username:</label>
-                        <input type="text" class="form-control" id="username" name="username" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password:</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="confirm_password">Confirm Password:</label>
-                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="address">Address:</label>
-                        <textarea class="form-control" id="address" name="address" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="user_type">User Type:</label>
-                        <select class="form-control" id="user_type" name="user_type" required>
-                            <option value="customer">Customer</option>
-                            <option value="admin">Admin</option>
-                            <option value="staff">Staff</option>
-                        </select>
-                    </div>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmAddModal">Add User</button>
-                </form>
+        <div class="row mb-3">
+            <div class="col text-right">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">Add User</button>
             </div>
-            <div class="col-md-6">
-                <h3>Current Users</h3>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Username</th>
-                                <th>User Type</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php while ($row = $users->fetch_assoc()) : ?>
-                                <tr>
-                                    <td><?php echo $row['name']; ?></td>
-                                    <td><?php echo $row['email']; ?></td>
-                                    <td><?php echo $row['username']; ?></td>
-                                    <td><?php echo $row['user_type']; ?></td>
-                                    <td>
-                                        <a href="edit_user.php?id=<?php echo $row['user_id']; ?>" class="btn btn-warning">Edit</a>
-                                        <a href="delete_user.php?id=<?php echo $row['user_id']; ?>" class="btn btn-danger">Delete</a>
-                                    </td>
-                                </tr>
-                            <?php endwhile; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Username</th>
+                        <th>User Type</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($row = $users->fetch_assoc()) : ?>
+                        <tr>
+                            <td><?php echo $row['name']; ?></td>
+                            <td><?php echo $row['email']; ?></td>
+                            <td><?php echo $row['username']; ?></td>
+                            <td><?php echo $row['user_type']; ?></td>
+                            <td>
+                                <a href="edit_user.php?id=<?php echo $row['user_id']; ?>" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="delete_user.php?id=<?php echo $row['user_id']; ?>" class="btn btn-danger btn-sm">Delete</a>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
         </div>
     </div>
 
     <div class="footer">
         <p>&copy; 2024 The Gallery Cafe</p>
+    </div>
+
+    <!-- Add User Modal -->
+    <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addUserModalLabel">Add New User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" id="userForm">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Username:</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm_password">Confirm Password:</label>
+                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address:</label>
+                            <textarea class="form-control" id="address" name="address" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="user_type">User Type:</label>
+                            <select class="form-control" id="user_type" name="user_type" required>
+                                <option value="customer">Customer</option>
+                                <option value="admin">Admin</option>
+                                <option value="staff">Staff</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmAddModal">Add User</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Confirmation Modal -->
@@ -224,6 +253,7 @@ $users = $conn->query("SELECT * FROM users");
     <script>
         $(document).ready(function() {
             $('#confirmAdd').click(function() {
+                $('#confirmAddModal').modal('hide');
                 $('#userForm').submit();
             });
 
