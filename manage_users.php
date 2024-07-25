@@ -8,24 +8,53 @@ include('config.php');
 
 $message = '';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $confirm_password = $_POST['confirm_password'];
-    $address = $_POST['address'];
-    $user_type = $_POST['user_type'];
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
+    $action = $_POST['action'];
+    
+    if ($action == 'add') {
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $confirm_password = $_POST['confirm_password'];
+        $address = $_POST['address'];
+        $user_type = $_POST['user_type'];
 
-    if ($password !== $confirm_password) {
-        $message = "Passwords do not match!";
-    } else {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO users (name, email, username, password, address, user_type) 
-                VALUES ('$name', '$email', '$username', '$hashed_password', '$address', '$user_type')";
+        if ($password !== $confirm_password) {
+            $message = "Passwords do not match!";
+        } else {
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            $sql = "INSERT INTO users (name, email, username, password, address, user_type) 
+                    VALUES ('$name', '$email', '$username', '$hashed_password', '$address', '$user_type')";
+
+            if ($conn->query($sql) === TRUE) {
+                $message = "User added successfully!";
+            } else {
+                $message = "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
+    } elseif ($action == 'edit') {
+        $user_id = $_POST['user_id'];
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $username = $_POST['username'];
+        $address = $_POST['address'];
+        $user_type = $_POST['user_type'];
+
+        $sql = "UPDATE users SET name='$name', email='$email', username='$username', address='$address', user_type='$user_type' 
+                WHERE user_id='$user_id'";
 
         if ($conn->query($sql) === TRUE) {
-            $message = "User added successfully!";
+            $message = "User updated successfully!";
+        } else {
+            $message = "Error: " . $sql . "<br>" . $conn->error;
+        }
+    } elseif ($action == 'delete') {
+        $user_id = $_POST['user_id'];
+        $sql = "DELETE FROM users WHERE user_id='$user_id'";
+
+        if ($conn->query($sql) === TRUE) {
+            $message = "User deleted successfully!";
         } else {
             $message = "Error: " . $sql . "<br>" . $conn->error;
         }
@@ -143,8 +172,8 @@ $users = $conn->query("SELECT * FROM users");
                             <td><?php echo $row['username']; ?></td>
                             <td><?php echo $row['user_type']; ?></td>
                             <td>
-                                <a href="edit_user.php?id=<?php echo $row['user_id']; ?>" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="delete_user.php?id=<?php echo $row['user_id']; ?>" class="btn btn-danger btn-sm">Delete</a>
+                                <button class="btn btn-warning btn-sm edit-btn" data-id="<?php echo $row['user_id']; ?>" data-name="<?php echo $row['name']; ?>" data-email="<?php echo $row['email']; ?>" data-username="<?php echo $row['username']; ?>" data-address="<?php echo $row['address']; ?>" data-user_type="<?php echo $row['user_type']; ?>">Edit</button>
+                                <button class="btn btn-danger btn-sm delete-btn" data-id="<?php echo $row['user_id']; ?>">Delete</button>
                             </td>
                         </tr>
                     <?php endwhile; ?>
@@ -169,6 +198,7 @@ $users = $conn->query("SELECT * FROM users");
                 </div>
                 <div class="modal-body">
                     <form method="post" id="userForm">
+                        <input type="hidden" name="action" value="add">
                         <div class="form-group">
                             <label for="name">Name:</label>
                             <input type="text" class="form-control" id="name" name="name" required>
@@ -201,14 +231,59 @@ $users = $conn->query("SELECT * FROM users");
                                 <option value="staff">Staff</option>
                             </select>
                         </div>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmAddModal">Add User</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmAddModal">Submit</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Confirmation Modal -->
+    <!-- Edit User Modal -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" id="editUserForm">
+                        <input type="hidden" name="action" value="edit">
+                        <input type="hidden" name="user_id" id="edit_user_id">
+                        <div class="form-group">
+                            <label for="edit_name">Name:</label>
+                            <input type="text" class="form-control" id="edit_name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_email">Email:</label>
+                            <input type="email" class="form-control" id="edit_email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_username">Username:</label>
+                            <input type="text" class="form-control" id="edit_username" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_address">Address:</label>
+                            <textarea class="form-control" id="edit_address" name="address" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_user_type">User Type:</label>
+                            <select class="form-control" id="edit_user_type" name="user_type" required>
+                                <option value="customer">Customer</option>
+                                <option value="admin">Admin</option>
+                                <option value="staff">Staff</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmEditModal">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Add Modal -->
     <div class="modal fade" id="confirmAddModal" tabindex="-1" role="dialog" aria-labelledby="confirmAddModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -224,6 +299,48 @@ $users = $conn->query("SELECT * FROM users");
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                     <button type="button" class="btn btn-primary" id="confirmAdd">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Edit Modal -->
+    <div class="modal fade" id="confirmEditModal" tabindex="-1" role="dialog" aria-labelledby="confirmEditModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmEditModalLabel">Confirm Edit User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to edit this user?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-primary" id="confirmEdit">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this user?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-danger" id="confirmDelete">Yes</button>
                 </div>
             </div>
         </div>
@@ -253,8 +370,42 @@ $users = $conn->query("SELECT * FROM users");
     <script>
         $(document).ready(function() {
             $('#confirmAdd').click(function() {
-                $('#confirmAddModal').modal('hide');
                 $('#userForm').submit();
+            });
+
+            $('#confirmEdit').click(function() {
+                $('#editUserForm').submit();
+            });
+
+            $('#confirmDelete').click(function() {
+                var user_id = $(this).data('id');
+                $.post('manage_users.php', { action: 'delete', user_id: user_id }, function(response) {
+                    location.reload();
+                });
+            });
+
+            $('.edit-btn').click(function() {
+                var user_id = $(this).data('id');
+                var name = $(this).data('name');
+                var email = $(this).data('email');
+                var username = $(this).data('username');
+                var address = $(this).data('address');
+                var user_type = $(this).data('user_type');
+
+                $('#edit_user_id').val(user_id);
+                $('#edit_name').val(name);
+                $('#edit_email').val(email);
+                $('#edit_username').val(username);
+                $('#edit_address').val(address);
+                $('#edit_user_type').val(user_type);
+
+                $('#editUserModal').modal('show');
+            });
+
+            $('.delete-btn').click(function() {
+                var user_id = $(this).data('id');
+                $('#confirmDelete').data('id', user_id);
+                $('#confirmDeleteModal').modal('show');
             });
 
             <?php if (!empty($message)) : ?>

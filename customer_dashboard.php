@@ -150,21 +150,29 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["user_type"] != "customer") {
         <!-- end container -->
     </div>
 
-    
-    <div class="container content">
+    <div class="container content mt-5" style="background-color: #333; color: white; padding: 20px; border-radius: 10px;">
         <div class="row">
-            <div class="col-12">
-                <h2>Welcome, Customer</h2>
-                <h3>Make a Reservation</h3>
-                <a href="make_reservation.php" class="btn btn-warning">Make Reservation</a>
-                <h3>Pre-order Food</h3>
-                <a href="pre_order.php" class="btn btn-warning">Pre-order</a>
+            <div class="col-12 text-center">
+                <h2 class="mb-4" style="color: #FFD700;">Want to Pre-reserve?</h2>
+                <div class="card mb-4" style="background-color: #444; color: white;">
+                    <div class="card-body">
+                        <h3 class="card-title" style="color: #FFD700;">Make a Reservation</h3>
+                        <p class="card-text">Reserve your table in advance and enjoy our exclusive dining experience.</p>
+                        <a href="make_reservation.php" class="btn btn-warning btn-lg">Make Reservation</a>
+                    </div>
+                </div>
+                <div class="card" style="background-color: #444; color: white;">
+                    <div class="card-body">
+                        <h3 class="card-title" style="color: #FFD700;">Pre-order Food</h3>
+                        <p class="card-text">Pre-order your favorite dishes and have them ready when you arrive.</p>
+                        <a href="pre_order.php" class="btn btn-warning btn-lg">Pre-order</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-
-    <div class="footer">
+    <div style="margin-top: 50px;" class="footer">
         <p>&copy; 2024 The Gallery Cafe</p>
     </div>
 

@@ -57,7 +57,7 @@ $pre_orders_result = $conn->query($pre_orders_sql);
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="customer_dashboard.php">Home</a>
+                    <a class="nav-link" href="customer_dashboard.php">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="view_menu_items.php">Menu Items</a>
@@ -85,69 +85,74 @@ $pre_orders_result = $conn->query($pre_orders_sql);
         </div>
     </nav>
 
-    <div class="container mt-5">
-        <h2 class="text-center">My Reservations</h2>
+    <div class="container mt-5" style="background-color: #333; color: white; padding: 20px; border-radius: 10px;">
+        <h2 class="text-center mb-4" style="color: #FFD700;">My Reservations</h2>
 
-        <h3>Table Reservations</h3>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Reservation ID</th>
-                    <th>Table Number</th>
-                    <th>Reservation Time</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if ($table_reservations_result->num_rows > 0) : ?>
-                    <?php while ($row = $table_reservations_result->fetch_assoc()) : ?>
-                        <tr>
-                            <td><?php echo $row['reservation_id']; ?></td>
-                            <td><?php echo $row['table_number']; ?></td>
-                            <td><?php echo $row['reservation_time']; ?></td>
-                            <td><?php echo $row['status']; ?></td>
-                        </tr>
-                    <?php endwhile; ?>
-                <?php else : ?>
+        <h3 style="color: #FFD700;">Table Reservations</h3>
+        <div class="table-responsive">
+            <table class="table table-striped table-dark">
+                <thead>
                     <tr>
-                        <td colspan="4" class="text-center">No table reservations found</td>
+                        <th style="color: #FFD700;">Reservation ID</th>
+                        <th style="color: #FFD700;">Table Number</th>
+                        <th style="color: #FFD700;">Reservation Time</th>
+                        <th style="color: #FFD700;">Status</th>
                     </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php if ($table_reservations_result->num_rows > 0) : ?>
+                        <?php while ($row = $table_reservations_result->fetch_assoc()) : ?>
+                            <tr>
+                                <td><?php echo $row['reservation_id']; ?></td>
+                                <td><?php echo $row['table_number']; ?></td>
+                                <td><?php echo $row['reservation_time']; ?></td>
+                                <td><?php echo $row['status']; ?></td>
+                            </tr>
+                        <?php endwhile; ?>
+                    <?php else : ?>
+                        <tr>
+                            <td colspan="4" class="text-center" style="color: #FFD700;">No table reservations found</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
 
-        <h3>Food Pre-orders</h3>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Order ID</th>
-                    <th>Item Name</th>
-                    <th>Quantity</th>
-                    <th>Order Time</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if ($pre_orders_result->num_rows > 0) : ?>
-                    <?php while ($row = $pre_orders_result->fetch_assoc()) : ?>
-                        <tr>
-                            <td><?php echo $row['order_id']; ?></td>
-                            <td><?php echo $row['item_name']; ?></td>
-                            <td><?php echo $row['quantity']; ?></td>
-                            <td><?php echo $row['order_time']; ?></td>
-                            <td><?php echo $row['status']; ?></td>
-                        </tr>
-                    <?php endwhile; ?>
-                <?php else : ?>
+        <h3 style="color: #FFD700; margin-top: 30px; ">Food Pre-orders</h3>
+        <div class="table-responsive">
+            <table class="table table-striped table-dark">
+                <thead>
                     <tr>
-                        <td colspan="5" class="text-center">No food pre-orders found</td>
+                        <th style="color: #FFD700;">Order ID</th>
+                        <th style="color: #FFD700;">Item Name</th>
+                        <th style="color: #FFD700;">Quantity</th>
+                        <th style="color: #FFD700;">Order Time</th>
+                        <th style="color: #FFD700;">Status</th>
                     </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php if ($pre_orders_result->num_rows > 0) : ?>
+                        <?php while ($row = $pre_orders_result->fetch_assoc()) : ?>
+                            <tr>
+                                <td><?php echo $row['order_id']; ?></td>
+                                <td><?php echo $row['item_name']; ?></td>
+                                <td><?php echo $row['quantity']; ?></td>
+                                <td><?php echo $row['order_time']; ?></td>
+                                <td><?php echo $row['status']; ?></td>
+                            </tr>
+                        <?php endwhile; ?>
+                    <?php else : ?>
+                        <tr>
+                            <td colspan="5" class="text-center" style="color: #FFD700;">No food pre-orders found</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <div class="footer">
+
+    <div style="margin-top: 50px;" class="footer">
         <p>&copy; 2024 The Gallery Cafe</p>
     </div>
 

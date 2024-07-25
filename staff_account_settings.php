@@ -2,7 +2,7 @@
 session_start();
 include('config.php');
 
-if (!isset($_SESSION["user_id"]) || $_SESSION["user_type"] != "customer") {
+if (!isset($_SESSION["user_id"]) || $_SESSION["user_type"] != "staff") {
     header("Location: login.php");
     exit();
 }
@@ -13,9 +13,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $username = $_POST["username"];
     $address = $_POST["address"];
-    
+
     $sql = "UPDATE users SET name='$name', email='$email', username='$username', address='$address' WHERE user_id='$user_id'";
-    
+
     if ($conn->query($sql) === TRUE) {
         $_SESSION["username"] = $username;
         echo "<script>alert('Account updated successfully!');</script>";
@@ -52,21 +52,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="customer_dashboard.php">Home</a>
+                    <a class="nav-link" href="staff_dashboard.php">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="view_menu_items.php">Menu Items</a>
+                    <a class="nav-link" href="staff_manage_reservations.php">Manage Reservations</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="make_reservation.php">Table Reservations</a>
+                    <a class="nav-link" href="staff_manage_pre_orders.php">Manage Pre-Orders</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="pre_order.php">Pre-order</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="parking.php">Parking</a>
-                </li>
-                
             </ul>
             <div class="dropdown">
                 <button class="dropbtn"><?php echo isset($_SESSION["username"]) ? $_SESSION["username"] : 'User'; ?>
