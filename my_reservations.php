@@ -22,6 +22,7 @@ $pre_orders_result = $conn->query($pre_orders_sql);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,8 +44,9 @@ $pre_orders_result = $conn->query($pre_orders_sql);
     <script src="js/modernizer.js"></script>
 
 </head>
+
 <body>
-<div id="loader">
+    <div id="loader">
         <div id="status"></div>
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark">
@@ -97,8 +99,8 @@ $pre_orders_result = $conn->query($pre_orders_sql);
                 </tr>
             </thead>
             <tbody>
-                <?php if ($table_reservations_result->num_rows > 0): ?>
-                    <?php while($row = $table_reservations_result->fetch_assoc()): ?>
+                <?php if ($table_reservations_result->num_rows > 0) : ?>
+                    <?php while ($row = $table_reservations_result->fetch_assoc()) : ?>
                         <tr>
                             <td><?php echo $row['reservation_id']; ?></td>
                             <td><?php echo $row['table_number']; ?></td>
@@ -106,7 +108,7 @@ $pre_orders_result = $conn->query($pre_orders_sql);
                             <td><?php echo $row['status']; ?></td>
                         </tr>
                     <?php endwhile; ?>
-                <?php else: ?>
+                <?php else : ?>
                     <tr>
                         <td colspan="4" class="text-center">No table reservations found</td>
                     </tr>
@@ -126,8 +128,8 @@ $pre_orders_result = $conn->query($pre_orders_sql);
                 </tr>
             </thead>
             <tbody>
-                <?php if ($pre_orders_result->num_rows > 0): ?>
-                    <?php while($row = $pre_orders_result->fetch_assoc()): ?>
+                <?php if ($pre_orders_result->num_rows > 0) : ?>
+                    <?php while ($row = $pre_orders_result->fetch_assoc()) : ?>
                         <tr>
                             <td><?php echo $row['order_id']; ?></td>
                             <td><?php echo $row['item_name']; ?></td>
@@ -136,7 +138,7 @@ $pre_orders_result = $conn->query($pre_orders_sql);
                             <td><?php echo $row['status']; ?></td>
                         </tr>
                     <?php endwhile; ?>
-                <?php else: ?>
+                <?php else : ?>
                     <tr>
                         <td colspan="5" class="text-center">No food pre-orders found</td>
                     </tr>
@@ -151,4 +153,5 @@ $pre_orders_result = $conn->query($pre_orders_sql);
 
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </body>
+
 </html>
