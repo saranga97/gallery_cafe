@@ -62,15 +62,21 @@ $reservations = $conn->query("SELECT * FROM reservations ORDER BY reservation_da
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="admin_dashboard.php">Dashboard</a>
+                    <a class="nav-link " href="admin_dashboard.php">Dashboard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="manage_pre_orders.php">Manage Pre Orders</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="manage_reservations.php">Manage Table Reservations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="manage_food_beverage.php">Manage Food/Beverage</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="manage_users.php">Manage Users</a>
                 </li>
             </ul>
             <div class="dropdown">

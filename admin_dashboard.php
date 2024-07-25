@@ -95,7 +95,12 @@ while ($row = $sales_data->fetch_assoc()) {
                 <li class="nav-item">
                     <a class="nav-link" href="manage_reservations.php">Manage Table Reservations</a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link" href="manage_food_beverage.php">Manage Food/Beverage</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="manage_users.php">Manage Users</a>
+                </li>
             </ul>
             <div class="dropdown">
                 <button class="dropbtn"><?php echo isset($_SESSION["username"]) ? $_SESSION["username"] : 'User'; ?>
