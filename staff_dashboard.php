@@ -35,10 +35,63 @@ $pre_orders = $conn->query("SELECT pre_orders.*, menu_items.item_name FROM pre_o
         .table thead th,
         .table tbody td {
             font-size: 0.8rem;
+            white-space: nowrap;
         }
 
         .modal-backdrop {
             position: unset;
+        }
+
+        .navbar {
+            background-color: #333;
+        }
+
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+        }
+
+        .dropdown .dropbtn {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown .dropbtn:hover,
+        .dropdown .dropbtn:focus {
+            background-color: #555;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -79,7 +132,7 @@ $pre_orders = $conn->query("SELECT pre_orders.*, menu_items.item_name FROM pre_o
     <div style="min-height: 85vh;" class="container mt-5">
         <h2 class="text-center">Welcome, Staff</h2>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-16 mt-5">
                 <h3>Manage Reservations</h3>
                 <div class="table-responsive">
                     <table class="table table-striped">
@@ -119,7 +172,7 @@ $pre_orders = $conn->query("SELECT pre_orders.*, menu_items.item_name FROM pre_o
                     </table>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div style="margin-left: auto; margin-right:auto" class="col-12 mt-5 ml-auto mr-auto">
                 <h3>Manage Pre-Orders</h3>
                 <div class="table-responsive">
                     <table class="table table-striped">
