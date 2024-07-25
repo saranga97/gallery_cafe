@@ -1,11 +1,5 @@
-<?php
-ob_start();
-session_start();
-include('config.php');
-?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,29 +7,6 @@ include('config.php');
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-
-    <!-- stylesheets css -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-
-    <link rel="stylesheet" href="css/magnific-popup.css">
-
-    <link rel="stylesheet" href="css/animate.min.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-
-    <link rel="stylesheet" href="css/nivo-lightbox.css">
-    <link rel="stylesheet" href="css/nivo_themes/default/default.css">
-
-    <link rel="stylesheet" href="css/hover-min.css">
-    <link rel="stylesheet" href="css/flexslider.css">
-
-    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600' rel='stylesheet' type='text/css'>
 
     <style>
         .container {
@@ -128,16 +99,41 @@ include('config.php');
                 }
             }
         });
+
+        function login(event) {
+            event.preventDefault();
+            var form = document.getElementById("loginFormElement");
+            var formData = new FormData(form);
+
+            fetch('login.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    if (data.user_type === 'admin') {
+                        window.location.href = 'admin_dashboard.php';
+                    } else if (data.user_type === 'staff') {
+                        window.location.href = 'staff_dashboard.php';
+                    } else {
+                        window.location.href = 'customer_dashboard.php';
+                    }
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
     </script>
 </head>
-
 <body>
     <section id="home" class="parallax-section">
         <div class="gradient-overlay"></div>
         <div class="container">
             <div class="row">
                 <div class="col-md-offset-2 col-md-8 col-sm-12">
-                    <h1 class="wow fadeInUp" data-wow-delay="0.6s">The Gallery cafe</h1>
+                    <h1 class="wow fadeInUp" data-wow-delay="0.6s">The Gallery Cafe</h1>
                     <p class="wow fadeInUp" data-wow-delay="1.0s">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet. Dolore magna aliquam erat volutpat.</p>
                     <a id="loginBtn" class="wow fadeInUp btn btn-default hvr-bounce-to-top smoothScroll" data-wow-delay="1.3s">Discover Now</a>
                 </div>
@@ -155,7 +151,7 @@ include('config.php');
         <div class="modal-content">
             <span class="close" id="closeLogin">&times;</span>
             <h2>Login</h2>
-            <form method="post" action="customer_dashboard.php">
+            <form id="loginFormElement" method="post" onsubmit="login(event)">
                 <div class="form-group">
                     <label for="username">Username:</label>
                     <input type="text" class="form-control" id="username" name="username" required>
@@ -174,7 +170,7 @@ include('config.php');
         <div class="modal-content">
             <span class="close" id="closeRegister">&times;</span>
             <h2>Register</h2>
-            <form method="post" action="login.php">
+            <form method="post" action="register.php">
                 <div class="form-group">
                     <label for="name">Name:</label>
                     <input type="text" class="form-control" id="name" name="name" required>
@@ -216,5 +212,4 @@ include('config.php');
         };
     </script>
 </body>
-
 </html>

@@ -86,9 +86,10 @@ $result = $conn->query($sql);
                 <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-content">
-                <a href="account_settings.php">Account Settings</a>
-                <a href="logout.php">Logout</a>
-            </div>
+                    <a href="account_settings.php">Account Settings</a>
+                    <a href="my_reservations.php">My Reservations</a>
+                    <a href="logout.php">Logout</a>
+                </div>
         </div>
     </div>
 </nav>
