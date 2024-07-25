@@ -82,8 +82,7 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["user_type"] != "customer") {
                             </h1>
                             <h2>Accidental appearances</h2>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                                diem nonummy nibh euismod
+                                Join us for a delightful dining experience where every meal is crafted with care and passion. Whether you are with friends, family, or officemates, The Gallery Cafe is the perfect place to enjoy great food and great company.
                             </p>
                             <div class="book-btn">
                                 <a href="make_reservation.php" class="table-btn hvr-underline-from-center">Book my Table</a>
@@ -92,6 +91,7 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["user_type"] != "customer") {
                                 <div class="mouse"></div>
                             </a>
                         </div>
+
                         <!-- end banner-cell -->
                     </div>
                     <!-- end banner-text -->
@@ -111,28 +111,22 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["user_type"] != "customer") {
                         <h2 class="block-title">About Us</h2>
                         <h3>IT STARTED, QUITE SIMPLY, LIKE THIS...</h3>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                            eiusm incididunt ut labore et dolore magna aliqua. Ut enim ad
-                            minim venia, nostrud exercitation ullamco.
+                            The Gallery Cafe began as a simple idea: to provide a unique dining experience that combines exquisite cuisine with a warm, inviting atmosphere. Our founders envisioned a place where people could gather to enjoy delicious meals, engage in meaningful conversations, and create lasting memories.
                         </p>
 
                         <p>
-                            Aenean commodo ligula eget dolor aenean massa. Cum sociis nat
-                            penatibu set magnis dis parturient montes, nascetur ridiculus
-                            mus. quam felisorat, ultricies nec, Aenean commodo ligula eget
-                            dolor penatibu set magnis is parturient montes, nascetur
-                            ridiculus mus. quam felisorat, ultricies nec, pellentesque eu,
-                            pretium quis, sem. quat massa quis enim. Donec vitae sapien ut
-                            libero venenatis fauci Nullam quis ante. Etiam sit amet rci eget
-                            eros.
+                            Our journey started with a passion for culinary excellence and a commitment to using the freshest, highest quality ingredients. From our humble beginnings, we have grown into a beloved destination for food lovers, known for our diverse menu that features a blend of local and international flavors.
                         </p>
 
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                            eiusm incididunt ut labore et dolore magna aliqua. Ut enim ad
-                            minim venia, nostrud exercitation ullamco.
+                            At The Gallery Cafe, we believe that dining is more than just eating – it is an experience. Our team is dedicated to providing exceptional service, creating an ambiance that feels like a home away from home. Whether you are joining us for a casual meal, a special celebration, or a quick bite, we strive to make every visit memorable.
+                        </p>
+
+                        <p>
+                            We are proud to be a part of this community and grateful for the support of our loyal customers. As we continue to grow and evolve, our mission remains the same: to deliver extraordinary food and unparalleled hospitality. Welcome to The Gallery Cafe – where every meal is a masterpiece.
                         </p>
                     </div>
+
                 </div>
                 <!-- end col -->
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -153,7 +147,7 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["user_type"] != "customer") {
     <div class="container content mt-5" style="background-color: #333; color: white; padding: 20px; border-radius: 10px;">
         <div class="row">
             <div class="col-12 text-center">
-                <h2 class="mb-4" style="color: #FFD700;">Want to Pre-reserve?</h2>
+                <h2 class="mb-4" style="color: #FFD700;">Want to Pre-Reserve?</h2>
                 <div class="card mb-4" style="background-color: #444; color: white;">
                     <div class="card-body">
                         <h3 class="card-title" style="color: #FFD700;">Make a Reservation</h3>
