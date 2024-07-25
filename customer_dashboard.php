@@ -64,6 +64,7 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["user_type"] != "customer") {
                 </button>
                 <div class="dropdown-content">
                     <a href="account_settings.php">Account Settings</a>
+                    <a href="my_reservations.php">My Reservations</a>
                     <a href="logout.php">Logout</a>
                 </div>
             </div>
