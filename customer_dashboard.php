@@ -166,6 +166,69 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["user_type"] != "customer") {
         </div>
     </div>
 
+    <div class="container content mt-5" style="background-color: #444; color: white; padding: 20px; border-radius: 10px;">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="mb-4" style="color: #FFD700;">Special Food and Beverages</h2>
+                <div style="color: black" class="card-deck">
+                    <div class="card">
+                        <img class="card-img-top" src="images/special-menu-1.jpg" alt="Special Food 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Delicious Dish 1</h5>
+                            <p class="card-text">Savor the flavors of our chef's special, a delightful blend of spices and fresh ingredients.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img class="card-img-top" src="images/special-menu-2.jpg" alt="Special Food 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Delicious Dish 2</h5>
+                            <p class="card-text">Experience the taste of culinary excellence with our exquisite special dish.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img class="card-img-top" src="images/special-menu-3.jpg" alt="Special Food 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Delicious Dish 3</h5>
+                            <p class="card-text">Indulge in our signature dish, crafted with passion and the finest ingredients.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container content mt-5" style="background-color: #444; color: white; padding: 20px; border-radius: 10px;">
+        <div class="row">
+            <div style="color: black"   class="col-12 text-center">
+                <h2 class="mb-4" style="color: #FFD700;">Special Promotions</h2>
+                <div class="card-deck">
+                    <div class="card">
+                        <img class="card-img-top" src="images/promo1.jpg" alt="Special Promotion 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Promotion 1</h5>
+                            <p class="card-text">Enjoy a 20% discount on all beverages during happy hour from 4 PM to 6 PM.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img class="card-img-top" src="images/promo2.jpg" alt="Special Promotion 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Promotion 2</h5>
+                            <p class="card-text">Get a complimentary dessert with every main course ordered on weekends.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img class="card-img-top" src="images/promo3.jpg" alt="Special Promotion 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Promotion 3</h5>
+                            <p class="card-text">Join us for a special 3-course meal at a discounted price every Wednesday.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div style="margin-top: 50px;" class="footer">
         <p>&copy; 2024 The Gallery Cafe</p>
     </div>
@@ -180,5 +243,6 @@ if (!isset($_SESSION["user_id"]) || $_SESSION["user_type"] != "customer") {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 
 </html>
