@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION["user_id"])) {
+    header("Location: login.php");
+    exit();
+}
 include('config.php');
 
 $slots = $conn->query("SELECT * FROM parking_slots");
@@ -9,16 +13,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $slot_id = $_POST["slot_id"];
     $reservation_time = date('Y-m-d H:i:s');
 
-    $sql = "INSERT INTO parking_reservations (user_id, slot_id, reservation_time) VALUES ('$user_id', '$slot_id', '$reservation_time')";
-    $update_slot = "UPDATE parking_slots SET availability = 'booked' WHERE slot_id = '$slot_id'";
+    if (!empty($slot_id) && is_numeric($slot_id)) {
+        $sql = "INSERT INTO parking_reservations (user_id, slot_id, reservation_time) VALUES ('$user_id', '$slot_id', '$reservation_time')";
+        $update_slot = "UPDATE parking_slots SET availability = 'booked' WHERE slot_id = '$slot_id'";
 
-    if ($conn->query($sql) === TRUE && $conn->query($update_slot) === TRUE) {
-        echo "<script>alert('Parking slot reserved successfully!');</script>";
+        if ($conn->query($sql) === TRUE && $conn->query($update_slot) === TRUE) {
+            echo "<script>alert('Parking slot reserved successfully!');</script>";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "<script>alert('Invalid slot selected. Please try again.');</script>";
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
